@@ -29,3 +29,5 @@ Route::resource('colors', ColorsController::class);
 Route::resource('designs', DesignsController::class);
 
 
+
+

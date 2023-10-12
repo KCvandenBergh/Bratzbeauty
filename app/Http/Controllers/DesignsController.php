@@ -20,7 +20,7 @@ class DesignsController extends Controller
      */
     public function create()
     {
-        //
+        return view('designs.create');
     }
 
     /**
