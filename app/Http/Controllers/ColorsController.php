@@ -39,8 +39,9 @@ class ColorsController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ]);
+
 
         // Afbeelding uploaden en opslaan
         if ($request->hasFile('image')) {
@@ -53,10 +54,10 @@ class ColorsController extends Controller
         $nailColor = new Color([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'image_url' => $imagePath, // Pad naar opgeslagen afbeelding
+            'image' => $imagePath, // Pad naar opgeslagen afbeelding
         ]);
 
-        Storage::put('file.jpg', $resources);
+//        Storage::put('file.jpg', $resources);
 
         $nailColor->save();
 

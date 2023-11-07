@@ -1,3 +1,4 @@
+@extends('layouts.app')
 
     <div class="container">
         <h1>Bewerk Kleurtje</h1>
