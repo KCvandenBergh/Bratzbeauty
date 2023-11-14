@@ -95,7 +95,27 @@ class ColorsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Valideer de invoer
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+        ]);
+
+        // Zoek het kleurtje op basis van het ID
+        $color = Color::find($id);
+
+        if ($color) {
+            // Werk de gegevens van het kleurtje bij
+            $color->name = $request->input('name');
+            $color->description = $request->input('description');
+            $color->save();
+
+            // Redirect naar de indexpagina met een succesmelding
+            return redirect()->route('colors.index')->with('success', 'Kleurtje succesvol bijgewerkt');
+        } else {
+            // Als het kleurtje niet bestaat, toon een foutmelding of redirect naar de indexpagina
+            return redirect()->route('colors.index')->with('error', 'Kleurtje niet gevonden');
+        }
     }
 
     /**
@@ -103,6 +123,23 @@ class ColorsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Zoek het Color-object op basis van het ID
+        $color = Color::find($id);
+
+        if ($color) {
+            // Verwijder de afbeelding uit de opslag (optioneel)
+            if (Storage::exists($color->image)) {
+                Storage::delete($color->image);
+            }
+
+            // Verwijder het Color-object uit de database
+            $color->delete();
+
+            // Terugkeren naar de indexpagina met een succesmelding
+            return redirect()->route('colors.index')->with('success', 'Kleurtje succesvol verwijderd');
+        } else {
+            // Als het kleurtje niet bestaat, toon een foutmelding of redirect naar de indexpagina
+            return redirect()->route('colors.index')->with('error', 'Kleurtje niet gevonden');
+        }
     }
 }

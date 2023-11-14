@@ -33,6 +33,19 @@
                         Geen afbeelding beschikbaar
                     @endif
                 </td>
+                <td>
+                    @auth
+                    <!-- Bewerkknop -->
+                    <a href="{{ route('colors.edit', $color->id) }}">Bewerk</a>
+
+                    <!-- Verwijderknop -->
+                    <form action="{{ route('colors.destroy', $color->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Verwijder</button>
+                    </form>
+                        @endauth
+                </td>
             </tr>
         @endforeach
         </tbody>
