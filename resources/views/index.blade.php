@@ -32,6 +32,12 @@
             Xx Bratzbeauty
         </div>
 
+        <div>
+            <button onclick="window.location='{{ route("reservations.create") }}'">
+                Maak Afspraak
+            </button>
+        </div>
+
     </div>
     </body>
 

@@ -7,8 +7,6 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Bratzbeauty') }}</title>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -16,6 +14,39 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="{{ url('/') }}">
+            {{ config('app.name', 'Bratzbeauty') }}
+        </a>
+        <img src="{{ asset('public/content/logoBratzbeauty.png') }}" alt="Your Logo">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('treatments.index') }}">Diensten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('openinghours')}}">Openingstijden</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Beoordelingen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contact')}}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reservations.create') }}">Afspraak maken</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <body>
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

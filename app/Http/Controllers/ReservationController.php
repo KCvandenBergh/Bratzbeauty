@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ReservationController extends Controller
 {
@@ -20,6 +22,14 @@ class ReservationController extends Controller
      */
     public function create()
     {
+
+        // Controleer of de gebruiker is ingelogd
+        if (Auth::check()) {
+            // Als ingelogd, stuur door naar de homepagina
+            return redirect()->route('home');
+        }
+
+        // Als niet ingelogd, toon de create-pagina
         return view('reservations.create');
     }
 

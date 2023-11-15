@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('page-title', 'Make Reservation')
+
 <form method="POST" action="{{ route('reservations.store') }}">
 @csrf
 
@@ -9,6 +13,12 @@
             <option value="optie2">Optie 2</option>
             <!-- Voeg hier andere dienstopties toe -->
         </select>
+    </div>
+
+    <!-- Datum -->
+    <div class="form-group">
+        <label for="datum">Datum:</label>
+        <input type="date" name="datum" id="datum" class="form-control">
     </div>
 
     <!-- Naam -->
