@@ -26,7 +26,7 @@ class ReservationController extends Controller
         // Controleer of de gebruiker is ingelogd
         if (Auth::check()) {
             // Als ingelogd, stuur door naar de homepagina
-            return redirect()->route('home');
+            return redirect()->route('dashboard');
         }
 
         // Als niet ingelogd, toon de create-pagina

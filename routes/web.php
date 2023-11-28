@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TreatmentsController;
 use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\DesignsController;
+use App\Http\Controllers\ReviewsController;
 use Illuminate\Support\Facades\Route;
 
 //Routes
@@ -24,10 +26,15 @@ Route::resource('designs', DesignsController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//User routes
+//Logged in user routes
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
+Route::get('/reviews/index', [ReviewsController::class, 'index'])->name('reviews.index');
+Route::get('/reviews/create', [ReviewsController::class, 'create'])->name('reviews.create')->middleware('auth');
+// web.php
 
-//Route::get('/dashboard', 'DashboardController@index')->middleware('auth');
+Route::get('/home', [HomeController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
+
 
 //Admin routes voor colors
 Route::get('/colors/{color}/edit', [ColorsController::class, 'edit'])->name('colors.edit')->middleware('auth');
@@ -42,6 +49,9 @@ Route::get('/designs/create', [DesignsController::class, 'create'])->name('desig
 //Admin routes voor reserveringen
 Route::get('/reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit')->middleware('auth');
 Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy')->middleware('auth');
+
+//Admin routes voor treatments
+Route::get('/treatments/create', [TreatmentsController::class, 'create'])->name('treatments.create')->middleware('auth');
 
 
 Auth::routes();

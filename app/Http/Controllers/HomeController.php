@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -11,6 +13,16 @@ class HomeController extends Controller
      *
      * @return void
      */
+    public function dashboard()
+    {
+        $user = Auth::user();
+        $upcomingAppointments = Reservation::where('email', $user->email)
+            ->where('appointment_date', '>', now())
+            ->get();
+
+        return view('dashboard', compact('upcomingAppointments'));
+    }
+
     public function __construct()
     {
         $this->middleware('auth');

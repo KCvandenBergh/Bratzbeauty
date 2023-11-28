@@ -3,21 +3,20 @@
 @section('page-title', 'Diensten')
 
 @section('content')
+    <h1>Diensten</h1>
 
-    <h1>
-        Diensten
-    </h1>
-    <body>
     <div>
         <div>
-       russian manicure
+            <h2>Russian Manicure</h2>
         </div>
 
-        <div>
-            <button onclick="window.location='{{ route("reservations.create") }}'">
-                Maak Afspraak
-            </button>
-        </div>
+        @auth
+                <div>
+                    <a href="{{ route('treatments.create') }}">Voeg nieuwe treatment toe</a>
+                </div>
+    @endauth
+
+    <!-- Andere dienstinformatie hier... -->
 
     </div>
-    </body>
+@endsection

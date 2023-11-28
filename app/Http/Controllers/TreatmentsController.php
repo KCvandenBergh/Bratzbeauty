@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Treatment;
 use Illuminate\Http\Request;
 
 class TreatmentsController extends Controller
@@ -28,8 +29,30 @@ class TreatmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        // Valideer de invoer
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'duration' => 'required|integer|min:1',
+        ]);
+
+        // Maak een nieuwe Treatment aan en vul deze met de gegeven data
+        $treatment = new Treatment([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'duration' => $request->input('duration'),
+        ]);
+
+        // Sla de behandeling op in de database
+        $treatment->save();
+
+        // Terugkeren naar de indexpagina voor behandelingen
+        return redirect()->route('treatments.index')->with('success', 'Behandeling is succesvol toegevoegd.');
     }
+
 
     /**
      * Display the specified resource.

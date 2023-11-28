@@ -9,8 +9,8 @@
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
+                        <p>Meld je aan voor een boekingsaccount om je gegevens op te slaan en sneller te kunnen boeken.</p>
                         @csrf
-
                         <div class="row mb-3">
                             <label for="first name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
 

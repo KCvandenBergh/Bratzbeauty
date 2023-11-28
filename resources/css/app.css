@@ -1,0 +1,16 @@
+.policy-container {
+    border: 1px solid #ddd; /* Rand rondom het vak */
+    border-radius: 10px; /* Afgeronde hoeken */
+    padding: 20px; /* Ruimte binnenin het vak */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Lichte schaduw */
+}
+
+.policy-content {
+    /* Stijl voor de tekst binnenin het vak */
+    line-height: 1.6;
+}
+
+.policy-content ul {
+    /* Stijl voor de lijst met punten */
+    padding-left: 20px;
+}
