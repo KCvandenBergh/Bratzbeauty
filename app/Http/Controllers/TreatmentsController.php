@@ -13,7 +13,11 @@ class TreatmentsController extends Controller
      */
     public function index()
     {
-        return view('treatments.index');
+        // Haal alle behandelingen op uit de database
+        $treatments = Treatment::all();
+
+        // Geef de behandelingen door aan de view
+        return view('treatments.index', compact('treatments'));
     }
 
     /**
@@ -73,16 +77,44 @@ class TreatmentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // Valideer de invoer
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric|min:0',
+            'duration' => 'required|integer|min:1',
+        ]);
+
+        // Zoek de behandeling op basis van het ID
+        $treatment = Treatment::findOrFail($id);
+
+        // Werk de behandeling bij met de gegeven data
+        $treatment->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
+            'duration' => $request->input('duration'),
+        ]);
+
+        // Terugkeren naar de indexpagina voor behandelingen
+        return redirect()->route('treatments.index')->with('success', 'Behandeling is succesvol bijgewerkt.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // Zoek de behandeling op basis van het ID
+        $treatment = Treatment::findOrFail($id);
+
+        // Verwijder de behandeling
+        $treatment->delete();
+
+        // Terugkeren naar de indexpagina voor behandelingen
+        return redirect()->route('treatments.index')->with('success', 'Behandeling is succesvol verwijderd.');
     }
 }

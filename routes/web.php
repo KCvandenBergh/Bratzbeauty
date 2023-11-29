@@ -24,7 +24,7 @@ Route::resource('reservations', ReservationController::class);
 Route::resource('colors', ColorsController::class);
 Route::resource('designs', DesignsController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //Logged in user routes
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
@@ -52,6 +52,8 @@ Route::delete('/reservations/{reservation}', [ReservationController::class, 'des
 
 //Admin routes voor treatments
 Route::get('/treatments/create', [TreatmentsController::class, 'create'])->name('treatments.create')->middleware('auth');
+Route::get('/treatments/{treatment}/edit', [TreatmentsController::class, 'edit'])->name('treatments.edit')->middleware('auth');
+Route::delete('/treatments/{treatment}', [TreatmentsController::class, 'destroy'])->name('treatments.destroy')->middleware('auth');
 
 
 Auth::routes();

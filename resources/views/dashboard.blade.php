@@ -1,4 +1,3 @@
-<!-- dashboard.blade.php -->
 
 @extends('layouts.app')
 
@@ -17,10 +16,11 @@
     </a>
 
     <h2>Aankomende Afspraken</h2>
-    @if(count($upcomingAppointments) > 0)
+{{--    @if(count($upcomingReservations) > 0)--}}
+    @if(isset($upcomingReservations) && count($upcomingReservations) > 0)
         <ul>
-            @foreach($upcomingAppointments as $appointment)
-                <li>{{ $appointment->appointment_date }}: {{ $appointment->description }}</li>
+            @foreach($upcomingReservations as $reservation)
+                <li>{{ $reservation->reservation_date }}: {{ $reservation->description }}</li>
             @endforeach
         </ul>
     @else

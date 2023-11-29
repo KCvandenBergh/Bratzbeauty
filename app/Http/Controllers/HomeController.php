@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $upcomingAppointments = Reservation::where('email', $user->email)
-            ->where('appointment_date', '>', now())
+            ->where('reservation_date', '>', now())
             ->get();
 
         return view('dashboard', compact('upcomingAppointments'));

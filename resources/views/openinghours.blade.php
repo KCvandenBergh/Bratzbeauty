@@ -10,7 +10,7 @@
         Deze week:
     <ul>
         <li>Maandag: gesloten</li>
-        <li>Dinsdag: 11:00 - 17:00</li>
+        <li>Dinsdag: gesloten</li>
         <li>Woensdag: gesloten</li>
         <li>Donderdag: gesloten</li>
         <li>Vrijdag: 13:00 - 18:00</li>
