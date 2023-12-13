@@ -54,6 +54,7 @@ Route::delete('/reservations/{reservation}', [ReservationController::class, 'des
 Route::get('/treatments/create', [TreatmentsController::class, 'create'])->name('treatments.create')->middleware('auth');
 Route::get('/treatments/{treatment}/edit', [TreatmentsController::class, 'edit'])->name('treatments.edit')->middleware('auth');
 Route::delete('/treatments/{treatment}', [TreatmentsController::class, 'destroy'])->name('treatments.destroy')->middleware('auth');
+Route::put('/treatments/{treatment}', [TreatmentsController::class, 'update'])->name('treatments.update')->middleware('auth');
 
 
 Auth::routes();
