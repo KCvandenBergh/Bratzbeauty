@@ -6,11 +6,12 @@ use App\Http\Controllers\TreatmentsController;
 use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\DesignsController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 //Routes
 Route::get('/', function () {return view('index');});
-Route::get('/about-us', function () {return view('about-us'); })->name('about-us'); 
+Route::get('/about-us', function () {return view('about-us'); })->name('about-us');
 Route::get('/openinghours', function () {return view('openinghours');})->name('openinghours');
 Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
@@ -58,6 +59,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::delete('/treatments/{treatment}', [TreatmentsController::class, 'destroy'])->name('treatments.destroy')->middleware('admin');
     Route::put('/treatments/{treatment}', [TreatmentsController::class, 'update'])->name('treatments.update')->middleware('admin');
 
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'showUserDashboard'])->name('dashboard.user');
+
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/admin-dashboard', [DashboardController::class, 'showAdminDashboard'])->name('dashboard.admin');
+    });
 });
 
 

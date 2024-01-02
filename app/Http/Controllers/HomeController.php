@@ -35,6 +35,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            if ($user->isAdmin()) {
+                return redirect()->route('reservations.index');
+            }
+
+            // Voeg hier andere controles voor andere rollen toe, indien nodig
+
+            return view('dashboard');
+        }
+
+        return view('dashboard');
     }
 }

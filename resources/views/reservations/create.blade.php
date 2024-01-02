@@ -9,12 +9,11 @@
     <div class="form-group">
         <label for="dienst">Dienst:</label>
         <select name="dienst" id="dienst" class="form-control">
-            <option value="optie1">Optie 1</option>
-            <option value="optie2">Optie 2</option>
-            <!-- Voeg hier andere dienstopties toe -->
+            @foreach($treatments as $treatment)
+                <option value="{{ $treatment->id }}">{{ $treatment->name }}</option>
+            @endforeach
         </select>
     </div>
-
     <!-- Datum -->
     <div class="form-group">
         <label for="datum">Datum:</label>
@@ -72,4 +71,7 @@
     <!-- Submit knop -->
     <button type="submit" class="btn btn-primary">Reserveren</button>
 </form>
+
+
+
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('public/resources/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/app.css') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -43,6 +43,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('reservations.create') }}">Afspraak maken</a>
                 </li>
+
+                @auth
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard.admin') }}">Mijn Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('reservations.index') }}">Reserveringen</a>
+                        </li>
+                    @endif
+                @endauth
+
             </ul>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

@@ -47,7 +47,7 @@
                 <p>Lees de policy eerst door voor dat je een afspraak maakt.</p>
 
                 <ul>
-                    <li>Voor een afspraak is een aanbetaling van 40% vereist.</li>
+                    <li>Voor een afspraak is een aanbetaling van 30 euro vereist.</li>
                     <li>De aanbetaling wordt in mindering gebracht op het totale bedrag.</li>
                     <li>Het restant bedrag dient contant betaald te worden anders worden hiervoor extra kosten voor in rekening gebracht.</li>
                     <li>De afspraak dient 48uur van te voren verplaatst/geannuleerd te worden anders wordt de aanbetaling ingehouden.</li>

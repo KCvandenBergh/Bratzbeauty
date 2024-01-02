@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Reservation extends Model
 {
     use HasFactory;
-    protected $fillable = ['dienst', 'naam', 'achternaam', 'email', 'telefoonnummer', 'postcode', 'geboortedatum', 'opmerkingen'];
+   protected $fillable = ['treatment_id', 'reservation_date', 'name', 'last_name', 'email', 'phone_number', 'zip_code','house_number', 'birthdate', 'comments'];
+
+    public function treatment()
+    {
+        return $this->belongsTo(Treatment::class);
+    }
 }
+
+
