@@ -13,27 +13,31 @@
                 <p>Prijs: {{ $treatment->price }}</p>
                 <p>Duur: {{ $treatment->duration }} minuten</p>
 
-                @auth
-                    <!-- Link naar bewerken -->
-                <a href="{{ route('treatments.edit', $treatment->id) }}">Bewerken</a>
 
-                <!-- Formulier voor verwijderen -->
-                <form action="{{ route('treatments.destroy', $treatment->id) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Weet je zeker dat je deze behandeling wilt verwijderen?')">Verwijderen</button>
-                </form>
-                    @endauth
-            </div>
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <!-- Link naar bewerken -->
+                        <a href="{{ route('treatments.edit', $treatment->id) }}">Bewerken</a>
+                        <!-- Formulier voor verwijderen -->
+                        <form action="{{ route('treatments.destroy', $treatment->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Weet je zeker dat je deze behandeling wilt verwijderen?')">Verwijderen</button>
+                        </form>
+                    @endif
+                @endauth
         @endforeach
 
-        @auth
-            <div>
-                <a href="{{ route('treatments.create') }}">Voeg nieuwe behandeling toe</a>
-            </div>
-    @endauth
+            @auth
+                @if(auth()->user()->role === 'admin')
+                    <div>
+                        <a href="{{ route('treatments.create') }}">Voeg nieuwe behandeling toe</a>
+                    </div>
+            @endif
+        @endauth
 
-    <!-- Andere dienstinformatie hier... -->
+
+        <!-- Andere dienstinformatie hier... -->
     </div>
 @endsection
 

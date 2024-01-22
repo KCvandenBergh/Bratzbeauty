@@ -15,5 +15,14 @@
         <label for="description">Beschrijving:</label>
         <textarea name="description" required>{{ old('description', $treatment->description) }}</textarea>
 
-        <label for="price">Prij
+        <label for="price">Prijs:</label>
+        <input type="number" name="price" value="{{ old('price', $treatment->price) }}" required>
+
+        <label for="duration">Duur (minuten):</label>
+        <input type="number" name="duration" value="{{ old('duration', $treatment->duration) }}" required>
+
+        <!-- Voeg hier andere velden toe die je wilt bewerken -->
+
+        <button type="submit">Bijwerken</button>
+    </form>
 @endsection

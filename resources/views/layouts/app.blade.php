@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('public/app.css') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=amiri-quran" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -21,7 +20,7 @@
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Bratzbeauty') }}
         </a>
-        <img src="{{ asset('public/content/logoBratzbeauty.png') }}" alt="Your Logo">
+        <img src="{{ asset('public/content/maes.png') }}" alt="maes.png">
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,6 +29,9 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('treatments.index') }}">Diensten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('designs.index') }}">Designs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('openinghours')}}">Openingstijden</a>

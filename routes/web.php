@@ -7,6 +7,7 @@ use App\Http\Controllers\ColorsController;
 use App\Http\Controllers\DesignsController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AvailableDateController;
 use Illuminate\Support\Facades\Route;
 
 //Routes
@@ -16,6 +17,8 @@ Route::get('/openinghours', function () {return view('openinghours');})->name('o
 Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
 Route::get('/reviews/index', [ReviewsController::class, 'index'])->name('reviews.index');
+Route::get('/designs', [DesignsController::class, 'index'])->name('designs.index');
+
 
 //Contact routes
 //Route::get('/contact', 'ContactController@create')->name('contact.create');
@@ -26,6 +29,7 @@ Route::resource('treatments', TreatmentsController::class);
 Route::resource('reservations', ReservationController::class);
 Route::resource('colors', ColorsController::class);
 Route::resource('designs', DesignsController::class);
+
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -39,15 +43,19 @@ Route::middleware(['auth'])->group(function () {
 // Admin routes
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
+    Route::resource('available-dates', AvailableDateController::class);
+
 //Admin routes voor colors
     Route::get('/colors/{color}/edit', [ColorsController::class, 'edit'])->name('colors.edit')->middleware('admin');
     Route::delete('/colors/{color}', [ColorsController::class, 'destroy'])->name('colors.destroy')->middleware('admin');
     Route::get('/colors/create', [ColorsController::class, 'create'])->name('colors.create')->middleware('admin');
 
 //Admin routes voor designs
-    Route::get('/designs/{design}/edit', [DesignsController::class, 'edit'])->name('designs.edit')->middleware('admin');
-    Route::delete('/designs/{design}', [DesignsController::class, 'destroy'])->name('designs.destroy')->middleware('admin');
+    //Route::get('/designs/{design}/edit', [DesignsController::class, 'edit'])->name('designs.edit')->middleware('admin');
+//    Route::delete('/designs/delete', [DesignsController::class, 'destroy'])->name('designs.destroy')->middleware('admin');
     Route::get('/designs/create', [DesignsController::class, 'create'])->name('designs.create')->middleware('admin');
+    Route::delete('designs/multiple/delete', [DesignsController::class, 'destroyMultiple'])->name('designs.multipleDelete')->middleware('admin');
+
 
 //Admin routes voor reserveringen
     Route::get('/reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit')->middleware('admin');
@@ -58,6 +66,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/treatments/{treatment}/edit', [TreatmentsController::class, 'edit'])->name('treatments.edit')->middleware('admin');
     Route::delete('/treatments/{treatment}', [TreatmentsController::class, 'destroy'])->name('treatments.destroy')->middleware('admin');
     Route::put('/treatments/{treatment}', [TreatmentsController::class, 'update'])->name('treatments.update')->middleware('admin');
+
+    // Routes voor de beschikbare data toevoegen
+    Route::resource('available-dates', AvailableDateController::class);
+    Route::resource('availabilities', AvailabilityController::class);
+
 
 });
 

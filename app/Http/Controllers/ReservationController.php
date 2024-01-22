@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Treatment;
 use App\Models\Reservation;
+use App\Models\AvailableDate;
 
 
 class ReservationController extends Controller
@@ -24,9 +25,13 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $treatments = Treatment::all(); // Haal alle behandelingen op uit de database
+        $availableDates = AvailableDate::with('availabilities')->where('date', '>=', now())->get();
+        $treatments = Treatment::all();
 
-        return view('reservations.create', ['treatments' => $treatments]);
+        return view('reservations.create', [
+            'availableDates' => $availableDates,
+            'treatments' => $treatments,
+        ]);
     }
 
     /**

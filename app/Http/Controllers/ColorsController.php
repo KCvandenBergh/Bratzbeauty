@@ -45,7 +45,7 @@ class ColorsController extends Controller
 
         // Afbeelding uploaden en opslaan
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/nail_colors');
+            $imagePath = $request->file('image')->store('public/designs');
         } else {
             // Handel het geval af waarin geen afbeelding is geüpload
         }
