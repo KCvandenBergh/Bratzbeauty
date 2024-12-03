@@ -1,20 +1,50 @@
-// Body
-$body-bg: #ffffff;
+// Body achtergrondkleur
+$body-bg: #000000;
 
 // Tekstkleur
-//$text-color: #ffffff;
+$text-color: #ffffff;
 
-.navbar {
-    background-color: #000000; /* Achtergrondkleur zwart */
-    color: #ffffff; /* Tekstkleur wit */
-}
-.navbar-nav .nav-item.active .nav-link {
-    border-bottom: 2px solid #000000; /* Vervang "yourColor" door de gewenste kleur van de onderstreping */
-}
+// Fontfamilie
+$font-family-sans-serif: 'Gruppo', sans-serif;
 
-
-// Typography
-$font-family-sans-serif: 'Amiri Quran', sans-serif;
+// Fontgrootte basis
 $font-size-base: 1.0rem;
+
+// Lijnhoogte basis
 $line-height-base: 1.6;
+
+// Navbar achtergrondkleur
+$navbar-bg: black;
+
+// Navbar tekstkleur
+$navbar-text-color: #ffffff;
+
+// Navbar schaduw
+$navbar-box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.5);
+
+// Policy container achtergrondkleur
+$policy-container-bg: #000000;
+
+// Policy container tekstkleur
+$policy-container-text-color: #ffffff;
+
+// Policy container box shadow
+$policy-container-box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+
+// Footer achtergrondkleur
+$footer-bg: black;
+
+// Footer tekstkleur
+$footer-text-color: white;
+
+// Footer link tekstkleur
+$footer-link-color: white;
+
+// Footer link hover tekstkleur
+$footer-link-hover-color: #ddd;
+
+// HR kleur
+$hr-color: #ffffff;
+
+
 

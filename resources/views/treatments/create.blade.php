@@ -3,6 +3,8 @@
 @section('page-title', 'Create Treatment')
 
 @section('content')
+
+    <a href="{{ route('treatments.index') }}" class="btn btn-secondary">Terug naar behandelingen</a>
     <h1>Voeg een nieuwe behandeling toe</h1>
 
     <form method="POST" action="{{ route('treatments.store') }}">

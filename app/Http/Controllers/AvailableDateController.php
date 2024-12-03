@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\AvailableDate;
+use Carbon\Carbon;
 
 class AvailableDateController extends Controller
 {
@@ -13,6 +14,20 @@ class AvailableDateController extends Controller
         $dates = AvailableDate::orderBy('date')->get();
         return view('available_dates.index', compact('dates'));
     }
+
+    public function showOpeningHours()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+
+        $dates = AvailableDate::where('date', '>=', $startOfWeek)
+            ->where('date', '<=', $endOfWeek)
+            ->orderBy('date', 'asc')
+            ->get();
+
+        return view('openinghours', compact('dates'));
+    }
+
 
     public function create()
     {
@@ -23,16 +38,38 @@ class AvailableDateController extends Controller
     {
         $request->validate([
             'date' => 'required|date',
-            'time' => 'required|date_format:H:i',
+            'times' => 'required|array',
+            'times.*' => 'date_format:H:i',
         ]);
 
-        AvailableDate::create([
-            'date' => $request->input('date'),
-            'time' => $request->input('time'),
-        ]);
+        $date = AvailableDate::create(['date' => $request->date]);
 
-        return redirect()->route('available-dates.index')->with('success', 'Datum succesvol toegevoegd!');
+        foreach ($request->times as $time) {
+            $date->times()->create(['time' => $time]);
+        }
+
+        return redirect()->route('dashboard.admin')->with('success', 'Beschikbare datum en tijden succesvol toegevoegd!');
     }
 
-    // Voeg update en destroy methodes toe zoals nodig
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $availableDate = AvailableDate::findOrFail($id);
+        $availableDate->update($request->only('date'));
+
+        return redirect()->route('dashboard.admin')->with('success', 'Datum succesvol bijgewerkt!');
+    }
+
+
+    public function destroy($id)
+    {
+        $availableDate = AvailableDate::findOrFail($id);
+        $availableDate->delete();
+
+        return redirect()->route('dashboard.admin')->with('success', 'Datum succesvol verwijderd!');
+    }
 }

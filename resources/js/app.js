@@ -23,3 +23,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+function fetchTimes(dateId) {
+    const url = `/api/available-times/${dateId}`; // Zorg ervoor dat dit overeenkomt met je API-route
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const timeSelect = document.getElementById('time');
+            timeSelect.innerHTML = ''; // Maak de selectie leeg voor nieuwe tijden
+
+            if (data.length === 0) {
+                const option = new Option('Geen tijden beschikbaar', '');
+                timeSelect.appendChild(option);
+            } else {
+                data.forEach(time => {
+                    const option = new Option(time.time, time.id); // Pas aan op basis van je datastructuur
+                    timeSelect.appendChild(option);
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Event listener toevoegen aan de datum-selectie als de pagina geladen is
+document.addEventListener('DOMContentLoaded', function() {
+    const dateSelect = document.getElementById('date');
+    if (dateSelect) {
+        dateSelect.addEventListener('change', function() {
+            fetchTimes(this.value);
+        });
+    }
+});

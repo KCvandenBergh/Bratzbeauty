@@ -44,6 +44,7 @@ class ColorsController extends Controller
 
 
         // Afbeelding uploaden en opslaan
+        dd($request->file('image'));
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/designs');
         } else {

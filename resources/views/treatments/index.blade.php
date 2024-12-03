@@ -14,10 +14,14 @@
                 <p>Duur: {{ $treatment->duration }} minuten</p>
 
 
-            @auth
+                @auth
                 @if(auth()->user()->role === 'admin')
                     <!-- Link naar bewerken -->
-                        <a href="{{ route('treatments.edit', $treatment->id) }}">Bewerken</a>
+                        <form action="{{ route('treatments.edit', $treatment->id) }}" method="GET">
+                            <button type="submit" >
+                                Bewerken
+                            </button>
+                        </form>
                         <!-- Formulier voor verwijderen -->
                         <form action="{{ route('treatments.destroy', $treatment->id) }}" method="POST" style="display: inline;">
                             @csrf

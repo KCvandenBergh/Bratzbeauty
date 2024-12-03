@@ -9,5 +9,10 @@ class AvailableDate extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['date', 'time']; // aan te passen aan jouw behoeften
+    protected $fillable = ['date'];
+
+    public function times()
+    {
+        return $this->hasMany(AvailableTime::class);
+    }
 }

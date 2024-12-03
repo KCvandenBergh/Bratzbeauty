@@ -69,9 +69,13 @@ class TreatmentsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Zoek het Treatment model op basis van het meegegeven ID
+        $treatment = Treatment::findOrFail($id);
+
+        // Geef de gevonden behandeling door aan de edit view
+        return view('treatments.edit', compact('treatment'));
     }
 
     /**

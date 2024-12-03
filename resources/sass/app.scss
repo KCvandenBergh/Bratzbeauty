@@ -2,8 +2,36 @@
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@import '_variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
+//index.blade.php
+@import 'index';
+
+
+.navbar-brand img{
+    position: center;
+}
+
+.navbar {
+    margin-top: 15px;
+    background-color: black; /* Zet de achtergrondkleur op zwart */
+}
+
+.navbar-nav {
+    margin: auto; /* Plaats de navbar items horizontaal in het midden */
+}
+
+.navbar-nav .nav-link {
+    color: white !important; /* Maak de tekst wit */
+}
+
+.navbar-brand img{
+    margin-top: 15px;
+}
+
+.footer{
+    color: $text-color;
+}

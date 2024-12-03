@@ -1,22 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Voeg Beschikbare Datum Toe</h1>
+    <div class="container">
+        <a href="{{ route('dashboard.admin') }}" class="btn btn-secondary">Terug naar Dashboard</a>
+        <h2>Nieuwe Beschikbare Datum en Tijd Toevoegen</h2>
+        <form action="{{ route('available-dates.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="date" class="form-label">Datum</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
 
-    <form action="{{ route('available-dates.store') }}" method="POST">
-        @csrf
+            <!-- Dynamisch toevoegen van tijden -->
+            <div id="time-entries">
+                <div class="mb-3">
+                    <label for="time1" class="form-label">Tijd</label>
+                    <input type="time" class="form-control" id="time1" name="times[]" required>
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="date">Datum:</label>
-            <input type="date" name="date" required>
-        </div>
+            <button type="button" id="add-time" class="btn btn-info">Tijd toevoegen</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
+        </form>
+    </div>
 
-        <div class="form-group">
-            <label for="time">Tijd:</label>
-            <input type="time" name="time" required>
-        </div>
-
-        <button type="submit">Opslaan</button>
-    </form>
+    <script>
+        document.getElementById('add-time').addEventListener('click', function() {
+            const newTimeEntry = document.createElement('div');
+            newTimeEntry.classList.add('mb-3');
+            newTimeEntry.innerHTML = `
+        <label for="time" class="form-label">Tijd</label>
+        <input type="time" class="form-control" name="times[]" required>
+    `;
+            document.getElementById('time-entries').appendChild(newTimeEntry);
+        });
+    </script>
 @endsection
-

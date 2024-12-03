@@ -1,10 +1,8 @@
-
 @extends('layouts.app')
 
 @section('content')
     <div class="container">
-        <h1>Bekijk hier de designs</h1>
-
+        <h1>Design gallery</h1>
 
         <form action="{{ route('designs.multipleDelete') }}" method="POST" id="deleteForm">
             @method('DELETE')
@@ -12,17 +10,17 @@
 
             <div class="row">
                 @foreach($designs as $design)
-                            <div class="col-md-3 mb-3">
+                    <div class="col-md-3 mb-3">
                         <label>
-
                             @auth
                                 @if(auth()->user()->role === 'admin')
-                            <input type="checkbox" name="designsToDelete[]" value="{{ $design->id }}">
+                                    <input type="checkbox" name="designsToDelete[]" value="{{ $design->id }}">
                                 @endif
                             @endauth
 
-
                             <img src="{{ asset('storage/' . $design->image_path) }}" alt="{{ $design->id }}" class="img-thumbnail">
+
+
                         </label>
                     </div>
                 @endforeach
@@ -35,7 +33,7 @@
             @endauth
         </form>
     </div>
-
-
 @endsection
+
+
 
