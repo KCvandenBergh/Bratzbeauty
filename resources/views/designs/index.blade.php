@@ -20,7 +20,19 @@
 
                             <img src="{{ asset('storage/' . $design->image_path) }}" alt="{{ $design->id }}" class="img-thumbnail">
 
-
+                            @auth
+                                @if(auth()->user()->role === 'admin')
+                                    <div class="form-check form-switch mt-2">
+                                        <input type="checkbox"
+                                               class="form-check-input toggle-status"
+                                               data-id="{{ $design->id }}"
+                                            {{ $design->is_active ? 'checked' : '' }}>
+                                        <label class="form-check-label">
+                                            {{ $design->is_active ? 'Actief' : 'Inactief' }}
+                                        </label>
+                                    </div>
+                                @endif
+                            @endauth
                         </label>
                     </div>
                 @endforeach

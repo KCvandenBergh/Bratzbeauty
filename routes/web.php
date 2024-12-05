@@ -61,6 +61,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/designs/create', [DesignsController::class, 'create'])->name('designs.create')->middleware('admin');
     Route::delete('designs/multiple/delete', [DesignsController::class, 'destroyMultiple'])->name('designs.multipleDelete')->middleware('admin');
     Route::post('/designs/multiple/delete', [DesignsController::class, 'destroyMultiple'])->name('designs.destroyMultiple')->middleware('admin');
+    Route::post('/designs/{id}/toggle-status', [DesignsController::class, 'toggleStatus'])->name('designs.toggleStatus');
+
 
 
 

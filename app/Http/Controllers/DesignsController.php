@@ -15,10 +15,18 @@ class DesignsController extends Controller
      */
     public function index()
     {
-        $designs = Design::all(); // Haal alle designs op uit de database
+        // Admins zien alle designs
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            $designs = Design::all();
+        } else {
+            // Normale gebruikers zien alleen designs met is_active = true
+            $designs = Design::where('is_active', true)->get();
+        }
 
-        return view('designs.index', ['designs' => $designs]);
+        return view('designs.index', compact('designs'));
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -85,7 +93,6 @@ class DesignsController extends Controller
     {
         $request->validate([
             'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            // Voeg andere validatieregels toe zoals nodig
         ]);
 
         $design = Design::findOrFail($id);
@@ -102,7 +109,7 @@ class DesignsController extends Controller
             $design->image_path = 'public/images/designs/' . $imageName; // Corrigeer het pad indien nodig
         }
 
-        // Sla eventuele andere wijzigingen op
+        // Sla op
         $design->save();
 
         return redirect()->route('designs.index')->with('success', 'Design is succesvol bijgewerkt.');
@@ -130,8 +137,6 @@ class DesignsController extends Controller
     public function destroy($id)
     {
         $design = Design::findOrFail($id);
-
-        // Hier kun je eventueel extra logica toevoegen, bijvoorbeeld het verwijderen van gerelateerde gegevens
 
         // Verwijder de afbeelding van de server
         File::delete(public_path($design->image_path));
@@ -161,4 +166,15 @@ class DesignsController extends Controller
         // Omleiden naar de designs.index met een succesbericht
         return redirect()->route('designs.index')->with('success', 'Geselecteerde designs zijn succesvol verwijderd.');
     }
+
+    public function toggleStatus(Request $request, $id)
+    {
+        $design = Design::findOrFail($id);
+        $design->is_active = $request->has('is_active'); // True als het vakje is aangevinkt, anders false
+        $design->save();
+
+        return redirect()->route('designs.index')->with('success', 'Designstatus bijgewerkt.');
+    }
+
+
 }
