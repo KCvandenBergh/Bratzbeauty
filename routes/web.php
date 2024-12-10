@@ -35,6 +35,8 @@ Route::resource('reservations', ReservationController::class);
 Route::resource('colors', ColorsController::class);
 Route::resource('designs', DesignsController::class);
 
+Route::resource('reviews', ReviewsController::class);
+
 
 //Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -42,6 +44,9 @@ Route::resource('designs', DesignsController::class);
 // auth routes (for logged in users)
 Route::middleware(['auth'])->group(function () {
     Route::get('/reviews/create', [ReviewsController::class, 'create'])->name('reviews.create')->middleware('auth');
+    Route::get('/dashboard', [DashboardController::class, 'showUserDashboard'])->name('user.dashboard');
+    Route::get('reviews/create', [ReviewsController::class, 'create'])->name('reviews.create');
+
 });
 
 

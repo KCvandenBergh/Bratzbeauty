@@ -26,6 +26,13 @@
     @else
         <p>Geen aankomende afspraken.</p>
     @endif
+
+    <!-- Knop voor review -->
+    @if ($loginCount >= 5)
+        <a href="{{ route('reviews.create') }}" class="btn btn-primary">Plaats een Review</a>
+    @else
+        <button class="btn btn-secondary" disabled> Plaats een Review (Je moet minstens 5 keer inloggen)</button>
+    @endif
     </body>
 @endsection
 

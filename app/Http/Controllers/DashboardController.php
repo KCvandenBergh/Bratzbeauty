@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\AvailableDate;
+use App\Models\LoginLog;
 
 class DashboardController extends Controller
 {
@@ -18,8 +19,14 @@ class DashboardController extends Controller
 
     public function showUserDashboard()
     {
-        // Code voor het weergeven van het dashboard voor normale gebruikers
-        return View::make('dashboard');
+
+        // Haal het aantal logins van de gebruiker op
+        $loginCount = LoginLog::where('user_id', \Auth::id())->count();
+
+        // Stuur het aantal logins naar de view
+        return view('dashboard', ['loginCount' => $loginCount]);
     }
+
+
 }
 
