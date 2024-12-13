@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 //Routes
 Route::get('/', function () {return view('index');});
 Route::get('/about-us', function () {return view('about-us'); })->name('about-us');
-//Route::get('/openinghours', function () {return view('openinghours');})->name('openinghours');
-//Route::get('/openinghours', [AvailableDateController::class, 'showOpeningHours'])->name('openinghours');
 Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::get('/reservations/create', [ReservationController::class, 'create'])->name('reservations.create');
 Route::get('/reviews/index', [ReviewsController::class, 'index'])->name('reviews.index');
@@ -25,34 +23,22 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 Route::get('/available-times/{dateId}', [AvailableTimeController::class, 'getTimesForDate']);
 Route::get('/', function () {return view('index');})->name('home');
 
-//Contact routes
-//Route::get('/contact', 'ContactController@create')->name('contact.create');
-//Route::post('/contact', 'ContactController@submit')->name('contact.submit');
-
 //Resource routes
 Route::resource('treatments', TreatmentsController::class);
 Route::resource('reservations', ReservationController::class);
 Route::resource('colors', ColorsController::class);
 Route::resource('designs', DesignsController::class);
-
 Route::resource('reviews', ReviewsController::class);
-
-
-//Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 // auth routes (for logged in users)
 Route::middleware(['auth'])->group(function () {
     Route::get('/reviews/create', [ReviewsController::class, 'create'])->name('reviews.create')->middleware('auth');
     Route::get('/dashboard', [DashboardController::class, 'showUserDashboard'])->name('user.dashboard');
     Route::get('reviews/create', [ReviewsController::class, 'create'])->name('reviews.create');
-
 });
-
 
 // Admin routes
 Route::group(['middleware' => ['auth', 'admin']], function () {
-
     Route::resource('available-dates', AvailableDateController::class);
 
 //Admin routes voor colors
@@ -61,21 +47,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/colors/create', [ColorsController::class, 'create'])->name('colors.create')->middleware('admin');
 
 //Admin routes voor designs
-    //Route::get('/designs/{design}/edit', [DesignsController::class, 'edit'])->name('designs.edit')->middleware('admin');
-//    Route::delete('/designs/delete', [DesignsController::class, 'destroy'])->name('designs.destroy')->middleware('admin');
     Route::get('/designs/create', [DesignsController::class, 'create'])->name('designs.create')->middleware('admin');
     Route::delete('designs/multiple/delete', [DesignsController::class, 'destroyMultiple'])->name('designs.multipleDelete')->middleware('admin');
     Route::post('/designs/multiple/delete', [DesignsController::class, 'destroyMultiple'])->name('designs.destroyMultiple')->middleware('admin');
-    Route::post('/designs/{id}/toggle-status', [DesignsController::class, 'toggleStatus'])->name('designs.toggleStatus');
-
-
-
+    Route::post('/designs/{id}/toggle-status', [DesignsController::class, 'toggleStatus'])->name('designs.toggleStatus')->middleware('admin');
 
 //Admin routes voor reserveringen
     Route::get('/reservations/{reservation}/edit', [ReservationController::class, 'edit'])->name('reservations.edit')->middleware( 'admin');
     Route::put('/reservations/{reservation}', [ReservationController::class, 'update'])->name('reservations.update')->middleware('admin');
     Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy'])->name('reservations.destroy')->middleware( 'admin');
-
 
 //Admin routes voor treatments
     Route::get('/treatments/create', [TreatmentsController::class, 'create'])->name('treatments.create')->middleware('admin');
@@ -92,11 +72,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::delete('/available-times/{id}', [AvailableTimeController::class, 'destroy'])->name('available-times.destroy');
     Route::delete('/available-dates/{id}', [AvailableDateController::class, 'destroy'])->name('available-dates.destroy');
 
-
     // Admin dashboard
     Route::get('/admin-dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard.admin');
-
-
 });
 
 Route::middleware(['auth'])->group(function () {

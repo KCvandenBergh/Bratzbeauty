@@ -22,15 +22,21 @@
 
                             @auth
                                 @if(auth()->user()->role === 'admin')
-                                    <div class="form-check form-switch mt-2">
-                                        <input type="checkbox"
-                                               class="form-check-input toggle-status"
-                                               data-id="{{ $design->id }}"
-                                            {{ $design->is_active ? 'checked' : '' }}>
-                                        <label class="form-check-label">
-                                            {{ $design->is_active ? 'Actief' : 'Inactief' }}
-                                        </label>
-                                    </div>
+                                        <div class="form-check form-switch mt-2">
+                                            <form action="{{ route('designs.toggleStatus', $design->id) }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="is_active" value="0"> <!-- Default value when unchecked -->
+                                                <input type="checkbox"
+                                                       class="form-check-input"
+                                                       name="is_active"
+                                                       value="1"
+                                                       onchange="this.form.submit()"
+                                                    {{ $design->is_active ? 'checked' : '' }}>
+                                                <label class="form-check-label">
+                                                    {{ $design->is_active ? 'Actief' : 'Inactief' }}
+                                                </label>
+                                            </form>
+                                        </div>
                                 @endif
                             @endauth
                         </label>

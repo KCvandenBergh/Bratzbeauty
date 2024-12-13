@@ -170,11 +170,14 @@ class DesignsController extends Controller
     public function toggleStatus(Request $request, $id)
     {
         $design = Design::findOrFail($id);
-        $design->is_active = $request->has('is_active'); // True als het vakje is aangevinkt, anders false
+
+        // Update the is_active column based on the checkbox state
+        $design->is_active = $request->input('is_active') == 1;
         $design->save();
 
-        return redirect()->route('designs.index')->with('success', 'Designstatus bijgewerkt.');
+        return redirect()->route('designs.index')->with('success', 'Design status bijgewerkt.');
     }
+
 
 
 }
