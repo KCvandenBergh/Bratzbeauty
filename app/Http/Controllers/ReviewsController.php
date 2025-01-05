@@ -88,7 +88,7 @@ class ReviewsController extends Controller
      */
     public function update(Request $request, Review $review)
     {
-        //
+        
     }
 
     /**
@@ -96,6 +96,6 @@ class ReviewsController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+
     }
 }
